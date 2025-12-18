@@ -34,7 +34,7 @@ async function generateDesign() {
 loading.classList.add("hidden");
 
 // ⛔ STOP HERE if NOT clothing related
-if (!data.isClothing !== true) {
+if (!data.isClothing) {
   result.innerText = "⚠️ This generator only supports clothing & fashion designs.";
   stores.innerHTML = "";
   return;

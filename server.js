@@ -10,8 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-
-
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 app.post("/generate", async (req, res) => {
@@ -25,12 +23,10 @@ app.post("/generate", async (req, res) => {
 You are a STRICT fashion-only assistant.
 
 RULES:
-1. If the user input is NOT related to clothing or fashion, respond ONLY with:
-{
-  "isClothing": false
-}
+1. If input is NOT related to clothing or fashion, respond ONLY with:
+{"isClothing": false}
 
-2. If it IS related to clothing or fashion, respond ONLY in this JSON format:
+2. If it IS related, respond ONLY with:
 {
   "isClothing": true,
   "design": "fashion description",
@@ -52,22 +48,21 @@ User input:
     });
 
     const raw = response.choices[0].message.content.trim();
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
 
-    // STRICT JSON parsing
-    const data = JSON.parse(raw);
+    if (!jsonMatch) {
+      return res.json({ isClothing: false });
+    }
 
+    const data = JSON.parse(jsonMatch[0]);
     res.json(data);
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      isClothing: false,
-      error: "Invalid request or non-fashion input"
-    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ isClothing: false });
   }
 });
 
-
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+console.log("Server running on http://localhost:3000");
