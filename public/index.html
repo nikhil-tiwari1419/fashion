@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion design generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+
+  <div class="container">
+    <h2>AI Fashion Design Generator</h2>
+
+    <select id="gender">
+      <option>Select..</option>
+      <option>Men</option>
+      <option>Women</option>
+    </select>
+
+    <select id="type">
+      <option>Select..</option>
+      <option>Casual Wear</option>
+      <option>Formal Wear</option>
+      <option>Traditional Wear</option>
+    </select>
+
+    <select id="color">
+      <option>Select..</option>
+      <option>Black</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option>Red</option>
+      <option>Green</option>
+      <option>Pastel</option>
+    </select>
+       <h2>......... oR .........</h2>
+    <textarea id="userPrompt" placeholder="Describe your fashion idea (optional)... 
+Example: Summer outfit, loose fit, college wear" rows="3"></textarea>
+
+
+    <button onclick="generateDesign()">Generate</button>
+
+    <!-- Loading -->
+    <div id="loading" class="loading hidden"></div>
+
+    <!-- Result -->
+    <p id="result"></p>
+     <div id="stores"></div>
+    <!-- Image Preview -->
+    <img id="preview" class="preview hidden" src="" alt="Fashion Preview">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+
+</html>
